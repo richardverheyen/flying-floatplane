@@ -1,11 +1,11 @@
 <script>
-	import logo from './svelte-logo.svg';
+	import logo from './logo.png';
 </script>
 
 <header>
 	<div class="gutters">
-		<!-- <img src={logo} alt="Floatplane" /> -->
-		<h1>Floatplane</h1>
+		<img src={logo} alt="Floatplane" />
+		<!-- <h1>Floatplane</h1> -->
 	</div>
 </header>
 
@@ -16,12 +16,18 @@
 	}
 
 	div {
+		display: flex;
+		align-items: center;
+		height: 70px;
+	}
+
+	img {
 		height: 50px;
 	}
 
-	h1 {
+	/* h1 {
 		font-size: 20px;
 		text-transform: uppercase;
     	font-weight: 600;
-	}
+	} */
 </style>
