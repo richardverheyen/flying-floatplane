@@ -28,7 +28,9 @@
 		}
 	}
 
-	let alpha, beta, gamma;
+	let alpha = 2;
+	let beta = 1;
+	let gamma = 3;
 
 	function handleOrientation(event) {
 		alpha = event.alpha; // yaw
@@ -42,9 +44,9 @@
 			DeviceMotionEvent.requestPermission()
 			.then((state) => {
 				if (state === 'granted') {
-				window.addEventListener('devicemotion', handleOrientation);
+					window.addEventListener('devicemotion', handleOrientation);
 				} else {
-				console.error('Request to access the orientation was rejected');
+					console.error('Request to access the orientation was rejected');
 				}
 			})
 			.catch(console.error);
@@ -74,5 +76,6 @@
 		top: 80px;
 		right: 10px;
 		background: white;
+		width: 140px;
 	}
 </style>
