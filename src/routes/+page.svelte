@@ -1,6 +1,6 @@
 <script>
 	import Canvas from '$lib/Canvas.svelte';
-	import Metrics from '$lib/Metrics.svelte';
+	import KeyListeners from '$lib/KeyListeners.svelte';
 </script>
 
 <svelte:head>
@@ -8,7 +8,7 @@
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
-<Metrics />
+<KeyListeners />
 
 <section>
 	<Canvas />
