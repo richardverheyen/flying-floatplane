@@ -1,0 +1,11 @@
+Model Information:
+* title:	Latécoère 29 (Floats version)
+* source:	https://sketchfab.com/3d-models/latecoere-29-floats-version-dcdf1c0debf04545a2d4724ce7dc57ac
+* author:	helijah (https://sketchfab.com/helijah)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Latécoère 29 (Floats version)" (https://sketchfab.com/3d-models/latecoere-29-floats-version-dcdf1c0debf04545a2d4724ce7dc57ac) by helijah (https://sketchfab.com/helijah) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

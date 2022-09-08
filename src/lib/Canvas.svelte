@@ -8,6 +8,7 @@
 	import { GammaCorrectionShader } from "three/examples/jsm/shaders/GammaCorrectionShader.js";
 	import { ShaderPass } from "three/examples/jsm/postprocessing/ShaderPass.js";
 	import { RGBShiftShader } from "three/examples/jsm/shaders/RGBShiftShader.js";
+	import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
 	onMount(async () => {
 	
@@ -95,16 +96,16 @@
 
 		// Sizes
 		const sizes = {
-		width: window.innerWidth,
-		height: window.innerHeight,
+			width: window.innerWidth,
+			height: window.innerHeight,
 		};
 
 		// Camera
 		const camera = new THREE.PerspectiveCamera(
-		75,
-		sizes.width / sizes.height,
-		0.01,
-		20
+			75,
+			sizes.width / sizes.height,
+			0.01,
+			20
 		);
 		camera.position.x = 0;
 		camera.position.y = 0.06;
@@ -114,9 +115,24 @@
 		// const controls = new OrbitControls(camera, canvas);
 		// controls.enableDamping = true;
 
+		const loader = new GLTFLoader();
+		let floatplane;
+		loader.load( './model/scene.gltf', ( gltf ) => {
+
+			floatplane = gltf.scene;
+			floatplane.scale.set(0.01, 0.01, 0.01);
+			floatplane.position.y = 0.2;
+			floatplane.rotation.x = Math.PI * -0.1
+			floatplane.rotation.y = Math.PI * 0.5
+			scene.add( gltf.scene );
+
+		}, undefined, function ( error ) {
+			console.error( {error} );
+		} );
+
 		// Renderer
 		const renderer = new THREE.WebGLRenderer({
-		canvas: canvas,
+			canvas: canvas,
 		});
 		renderer.setSize(sizes.width, sizes.height);
 		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -164,8 +180,10 @@
 			// Update controls
 			// controls.update();
 
-			plane.position.z = (elapsedTime * 0.15) % 2;
-			plane2.position.z = ((elapsedTime * 0.15) % 2) - 2;
+			// plane.position.z = (elapsedTime * 0.15) % 2; // plane flies away from the camera
+			// plane2.position.z = ((elapsedTime * 0.15) % 2) - 2;
+			plane.position.z = -(elapsedTime * 0.15) % 2; // plane flies towards the camera
+			plane2.position.z = -((elapsedTime * 0.15) % 2) + 2;
 
 			// Render
 			// renderer.render(scene, camera);
