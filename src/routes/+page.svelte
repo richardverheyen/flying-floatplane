@@ -1,5 +1,5 @@
 <script>
-	import Counter from '$lib/Counter.svelte';
+	import Canvas from '$lib/Canvas.svelte';
 </script>
 
 <svelte:head>
@@ -8,22 +8,17 @@
 </svelte:head>
 
 <section>
-	<h1>
-		<span class="welcome">
-			<picture>
-				<source srcset="svelte-welcome.webp" type="image/webp" />
-				<img src="svelte-welcome.png" alt="Welcome" />
-			</picture>
-		</span>
+	<Canvas />
+</section>
 
-		to your new<br />SvelteKit app
-	</h1>
-
-	<h2>
-		try editing <strong>src/routes/+page.svelte</strong>
-	</h2>
-
-	<Counter />
+<section id="pitch">
+	<div class="gutters">
+		<h2>
+			We'll deliver your end to end web solution <br />
+			<u>on time</u> and <u>on budget</u>. When we're done, <br />
+			<u>we'll train your team</u> to maintain it.
+		</h2>
+	</div>
 </section>
 
 <style>
@@ -34,24 +29,11 @@
 		align-items: center;
 		flex: 1;
 	}
-
-	h1 {
-		width: 100%;
+	
+	#pitch {
+		min-height: 400px;
 	}
-
-	.welcome {
-		display: block;
-		position: relative;
-		width: 100%;
-		height: 0;
-		padding: 0 0 calc(100% * 495 / 2048) 0;
-	}
-
-	.welcome img {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		display: block;
+	#pitch h2 {
+		margin: auto;
 	}
 </style>
