@@ -1,11 +1,14 @@
 <script>
 	import Canvas from '$lib/Canvas.svelte';
+	import Metrics from '$lib/Metrics.svelte';
 </script>
 
 <svelte:head>
 	<title>Floatplane</title>
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
+
+<Metrics />
 
 <section>
 	<Canvas />

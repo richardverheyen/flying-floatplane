@@ -1,4 +1,7 @@
 <script>
+// @ts-nocheck
+
+	import { keysHeld } from './stores.js';
 	import { onMount } from 'svelte';
 
 	// https://blog.maximeheckel.com/posts/vaporwave-3d-scene-with-threejs/
@@ -120,10 +123,10 @@
 		loader.load( './model/scene.gltf', ( gltf ) => {
 
 			floatplane = gltf.scene;
-			floatplane.scale.set(0.01, 0.01, 0.01);
+			floatplane.scale.set(0.004, 0.004, 0.004);
 			floatplane.position.y = 0.2;
-			floatplane.rotation.x = Math.PI * -0.1
-			floatplane.rotation.y = Math.PI * 0.5
+			floatplane.rotation.x = Math.PI * -0.1;
+			floatplane.rotation.y = Math.PI * 0.65;
 			scene.add( gltf.scene );
 
 		}, undefined, function ( error ) {
@@ -177,14 +180,27 @@
 		// Animate
 		const tick = () => {
 			const elapsedTime = clock.getElapsedTime();
-			// Update controls
-			// controls.update();
 
-			// plane.position.z = (elapsedTime * 0.15) % 2; // plane flies away from the camera
-			// plane2.position.z = ((elapsedTime * 0.15) % 2) - 2;
 			plane.position.z = -(elapsedTime * 0.15) % 2; // plane flies towards the camera
 			plane2.position.z = -((elapsedTime * 0.15) % 2) + 2;
 
+			if ($keysHeld.includes("ArrowUp")) {
+				floatplane.position.y += 0.01;
+			}
+			if ($keysHeld.includes("ArrowDown")) {
+				floatplane.position.y -= 0.01;
+			}
+			if ($keysHeld.includes("ArrowRight")) {
+				floatplane.position.x += 0.01;
+			}
+			if ($keysHeld.includes("ArrowLeft")) {
+				floatplane.position.x -= 0.01;
+			}
+			// if (floatplane) {
+			// 	floatplane.position.x = $x / 1000;
+			// 	floatplane.position.y = $y / 1000;
+			// }
+			
 			// Render
 			// renderer.render(scene, camera);
 			effectComposer.render();
