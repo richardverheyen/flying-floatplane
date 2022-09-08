@@ -123,11 +123,9 @@
 		loader.load( './model/scene.gltf', ( gltf ) => {
 
 			floatplane = gltf.scene;
-			floatplane.scale.set(0.004, 0.004, 0.004);
+			floatplane.scale.set(0.008, 0.008, 0.008);
 			floatplane.position.y = 0.2;
-			floatplane.rotation.x = Math.PI * -0.1;
-			floatplane.rotation.y = Math.PI * 0.65;
-			
+
 			floatplane.velocity = new THREE.Vector3();
 			floatplane.acceleration = new THREE.Vector3();
 			scene.add( gltf.scene );
@@ -187,11 +185,17 @@
 			plane.position.z = -(elapsedTime * 0.15) % 2; // plane flies towards the camera
 			plane2.position.z = -((elapsedTime * 0.15) % 2) + 2;
 
-			flyFloatplane(floatplane, $keysHeld);
+			if (floatplane) {
+				flyFloatplane(floatplane, $keysHeld);
+			}
 			
 			// Render
 			// renderer.render(scene, camera);
 			effectComposer.render();
+
+			// if ($keysHeld.length) {
+			// 	console.log(floatplane);
+			// }
 
 			// Call tick again on the next frame
 			window.requestAnimationFrame(tick);
@@ -200,19 +204,43 @@
 		tick();
 	});
 
+	function sigFigs(num, fig) {
+		const orderOfMagnitude = Math.pow(10, fig);
+		return Math.floor(num * orderOfMagnitude) / orderOfMagnitude;
+	}
+
 	function flyFloatplane(obj, keysArr) {
+
+		// set the new acceleration based on the held down arrow keys
 		if (keysArr.includes("ArrowUp")) {
-			obj.position.y += 0.01;
+			obj.acceleration.y = obj.acceleration.y + 0.0001;
 		}
 		if (keysArr.includes("ArrowDown")) {
-			obj.position.y -= 0.01;
+			obj.acceleration.y = obj.acceleration.y - 0.0001;
 		}
 		if (keysArr.includes("ArrowRight")) {
-			obj.position.x += 0.01;
+			obj.acceleration.x = obj.acceleration.x + 0.0001;
 		}
 		if (keysArr.includes("ArrowLeft")) {
-			obj.position.x -= 0.01;
+			obj.acceleration.x = obj.acceleration.x - 0.0001;
 		}
+		// dampening of acceleration
+		obj.acceleration.x = sigFigs(obj.acceleration.x / 1.01, 6);
+		obj.acceleration.y = sigFigs(obj.acceleration.y / 1.01, 6);
+
+		obj.rotation.y = Math.PI * 0.5 - sigFigs(obj.acceleration.x * -100, 4);
+		obj.rotation.x = 1 * sigFigs(obj.acceleration.y * -100, 4);
+		obj.rotation.z = Math.PI * -0.1;
+
+		console.log(obj.acceleration.y);
+
+		// use the updated acceleration to set the new velocity
+		obj.velocity.x = sigFigs(obj.velocity.x / 50 + obj.acceleration.x, 4);
+		obj.velocity.y = sigFigs(obj.velocity.y / 50 + obj.acceleration.y, 4);
+
+		// use the updated velocity to set the new position
+		obj.position.x += obj.velocity.x;
+		obj.position.y += obj.velocity.y;
 	}
 </script>
 
