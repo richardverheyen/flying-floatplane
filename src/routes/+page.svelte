@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-	<title>Home</title>
+	<title>Floatplane</title>
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
@@ -21,6 +21,18 @@
 	</div>
 </section>
 
+<section id="team">
+	<div class="gutters">
+		<h2>Our Team</h2>
+		<ul>
+			<li>Jan</li>
+			<li>Rich</li>
+			<li>Shuwen</li>
+			<li>Madeleine</li>
+		</ul>
+	</div>
+</section>
+
 <style>
 	section {
 		display: flex;
@@ -35,5 +47,11 @@
 	}
 	#pitch h2 {
 		margin: auto;
+	}
+
+	#team div {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 	}
 </style>
