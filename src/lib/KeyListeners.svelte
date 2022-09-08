@@ -28,11 +28,51 @@
 		}
 	}
 
+	let alpha, beta, gamma;
+
+	function handleOrientation(event) {
+		alpha = event.alpha; // yaw
+		beta = event.beta; // pitch
+		gamma = event.gamma; // roll
+	}
+
+	function onClick() {
+		if (typeof DeviceMotionEvent.requestPermission === 'function') {
+			// Handle iOS 13+ devices.
+			DeviceMotionEvent.requestPermission()
+			.then((state) => {
+				if (state === 'granted') {
+				window.addEventListener('devicemotion', handleOrientation);
+				} else {
+				console.error('Request to access the orientation was rejected');
+				}
+			})
+			.catch(console.error);
+		} else {
+			// Handle regular non iOS 13+ devices.
+			window.addEventListener('devicemotion', handleOrientation);
+		}
+	}
+
 </script>
+
+<div id="KeyListeners">
+	<button on:click={onClick}>grant</button>
+	<ul>
+		<li>acc x : {alpha}</li>
+		<li>acc y : {beta}</li>
+		<li>acc z : {gamma}</li>
+	</ul>
+</div>
 
 <!-- https://svelte.dev/tutorial/svelte-window -->
 <svelte:window on:keydown={handleKeydown} on:keyup={handleKeyup}/>
 
 <style lang="scss">
-	
+	#KeyListeners {
+		position: absolute;
+		top: 80px;
+		right: 10px;
+		background: white;
+	}
 </style>
