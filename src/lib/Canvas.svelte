@@ -114,16 +114,12 @@
 		camera.position.y = 0.06;
 		camera.position.z = 1.1;
 
-		// Controls
-		// const controls = new OrbitControls(camera, canvas);
-		// controls.enableDamping = true;
-
 		const loader = new GLTFLoader();
 		let floatplane;
-		loader.load( './model/scene.gltf', ( gltf ) => {
+		loader.load( './floatplane1.glb', ( gltf ) => {
 
 			floatplane = gltf.scene;
-			floatplane.scale.set(0.008, 0.008, 0.008);
+			floatplane.scale.set(0.01, 0.01, 0.01);
 			floatplane.position.y = 0.2;
 
 			floatplane.velocity = new THREE.Vector3();
@@ -193,10 +189,6 @@
 			// renderer.render(scene, camera);
 			effectComposer.render();
 
-			// if ($keysHeld.length) {
-			// 	console.log(floatplane);
-			// }
-
 			// Call tick again on the next frame
 			window.requestAnimationFrame(tick);
 		};
@@ -228,9 +220,9 @@
 		obj.acceleration.x = sigFigs(obj.acceleration.x / 1.01, 6);
 		obj.acceleration.y = sigFigs(obj.acceleration.y / 1.01, 6);
 
-		obj.rotation.y = Math.PI * 0.5 - sigFigs(obj.acceleration.x * -100, 4);
-		obj.rotation.x = 1 * sigFigs(obj.acceleration.y * -100, 4);
-		obj.rotation.z = Math.PI * -0.1;
+		obj.rotation.y = -sigFigs(obj.acceleration.x * -100, 4) + Math.PI;
+		obj.rotation.x =  sigFigs(obj.acceleration.y * -100, 4);
+		obj.rotation.z = Math.PI * -sigFigs(obj.acceleration.x * -50, 4);
 
 		// use the updated acceleration to set the new velocity
 		obj.velocity.x = sigFigs(obj.velocity.x / 50 + obj.acceleration.x, 4);
