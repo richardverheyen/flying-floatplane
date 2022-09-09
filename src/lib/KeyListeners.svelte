@@ -45,13 +45,18 @@
 			// Handle iOS 13+ devices.
 			DeviceMotionEvent.requestPermission()
 			.then((state) => {
+				window.alert('function permission requested');
 				if (state === 'granted') {
+					window.alert('function permission granted');
 					window.addEventListener('devicemotion', handleOrientation);
 				} else {
-					console.error('Request to access the orientation was rejected');
+					window.alert('function permission denied');
+					// console.error('Request to access the orientation was rejected');
 				}
 			})
-			.catch(console.error);
+			.catch(e => {
+				window.alert("function permission granted", e);
+			});
 		} else {
 			// Handle regular non iOS 13+ devices.
 			window.alert('function not available');
