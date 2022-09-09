@@ -33,6 +33,7 @@
 	let gamma = 3;
 
 	function handleOrientation(event) {
+		window.alert(JSON.parse(event));
 		alpha = event.alpha; // yaw
 		beta = event.beta; // pitch
 		gamma = event.gamma; // roll
@@ -68,7 +69,7 @@
 </div>
 
 <!-- https://svelte.dev/tutorial/svelte-window -->
-<svelte:window on:keydown={handleKeydown} on:keyup={handleKeyup}/>
+<svelte:window on:keydown={handleKeydown} on:keyup={handleKeyup} on:devicemotion={handleOrientation} />
 
 <style lang="scss">
 	#KeyListeners {

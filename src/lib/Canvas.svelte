@@ -232,8 +232,6 @@
 		obj.rotation.x = 1 * sigFigs(obj.acceleration.y * -100, 4);
 		obj.rotation.z = Math.PI * -0.1;
 
-		console.log(obj.acceleration.y);
-
 		// use the updated acceleration to set the new velocity
 		obj.velocity.x = sigFigs(obj.velocity.x / 50 + obj.acceleration.x, 4);
 		obj.velocity.y = sigFigs(obj.velocity.y / 50 + obj.acceleration.y, 4);
