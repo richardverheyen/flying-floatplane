@@ -59,7 +59,7 @@
 			});
 		} else {
 			// Handle regular non iOS 13+ devices.
-			window.alert('function not available');
+			window.alert('function not available, adding with js');
 			window.addEventListener('devicemotion', handleOrientation);
 		}
 	}
@@ -76,7 +76,7 @@
 </div>
 
 <!-- https://svelte.dev/tutorial/svelte-window -->
-<svelte:window on:keydown={handleKeydown} on:keyup={handleKeyup} />
+<svelte:window on:keydown={handleKeydown} on:keyup={handleKeyup} on:devicemotion={handleOrientation} />
 
 <style lang="scss">
 	#KeyListeners {
