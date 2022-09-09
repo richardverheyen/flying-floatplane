@@ -28,62 +28,22 @@
 		}
 	}
 
-	let alpha = 2;
-	let beta = 1;
-	let gamma = 3;
+	// let alpha = 2;
+	// let beta = 1;
+	// let gamma = 3;
 
-	function handleOrientation(event) {
-		window.alert(JSON.parse(event));
-		alpha = event.alpha; // yaw
-		beta = event.beta; // pitch
-		gamma = event.gamma; // roll
-	}
-
-	function onClick() {
-		if (typeof DeviceMotionEvent.requestPermission === 'function') {
-			window.alert('function available');
-			// Handle iOS 13+ devices.
-			DeviceMotionEvent.requestPermission()
-			.then((state) => {
-				window.alert('function permission requested');
-				if (state === 'granted') {
-					window.alert('function permission granted');
-					window.addEventListener('devicemotion', handleOrientation);
-				} else {
-					window.alert('function permission denied');
-					// console.error('Request to access the orientation was rejected');
-				}
-			})
-			.catch(e => {
-				window.alert("function permission granted", e);
-			});
-		} else {
-			// Handle regular non iOS 13+ devices.
-			window.alert('function not available, adding with js');
-			window.addEventListener('devicemotion', handleOrientation);
-		}
-	}
+	// // https://trekhleb.dev/blog/2021/gyro-web/
+	// function handleOrientation(event) {
+	// 	window.alert(JSON.parse(event));
+	// 	alpha = event.alpha; // yaw
+	// 	beta = event.beta; // pitch
+	// 	gamma = event.gamma; // roll
+	// }
 
 </script>
 
-<div id="KeyListeners">
-	<button on:click={onClick}>grant</button>
-	<ul>
-		<li>acc x : {alpha}</li>
-		<li>acc y : {beta}</li>
-		<li>acc z : {gamma}</li>
-	</ul>
-</div>
-
 <!-- https://svelte.dev/tutorial/svelte-window -->
-<svelte:window on:keydown={handleKeydown} on:keyup={handleKeyup} on:devicemotion={handleOrientation} />
+<svelte:window on:keydown={handleKeydown} on:keyup={handleKeyup} />
 
 <style lang="scss">
-	#KeyListeners {
-		position: absolute;
-		top: 80px;
-		right: 10px;
-		background: white;
-		width: 140px;
-	}
 </style>
