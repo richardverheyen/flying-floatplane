@@ -41,6 +41,7 @@
 
 	function onClick() {
 		if (typeof DeviceMotionEvent.requestPermission === 'function') {
+			window.alert('function available');
 			// Handle iOS 13+ devices.
 			DeviceMotionEvent.requestPermission()
 			.then((state) => {
@@ -53,6 +54,7 @@
 			.catch(console.error);
 		} else {
 			// Handle regular non iOS 13+ devices.
+			window.alert('function not available');
 			window.addEventListener('devicemotion', handleOrientation);
 		}
 	}
@@ -69,7 +71,7 @@
 </div>
 
 <!-- https://svelte.dev/tutorial/svelte-window -->
-<svelte:window on:keydown={handleKeydown} on:keyup={handleKeyup} on:devicemotion={handleOrientation} />
+<svelte:window on:keydown={handleKeydown} on:keyup={handleKeyup} />
 
 <style lang="scss">
 	#KeyListeners {
