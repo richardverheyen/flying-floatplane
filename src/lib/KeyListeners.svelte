@@ -28,22 +28,56 @@
 		}
 	}
 
-	// let alpha = 2;
-	// let beta = 1;
-	// let gamma = 3;
-
 	// // https://trekhleb.dev/blog/2021/gyro-web/
-	// function handleOrientation(event) {
-	// 	window.alert(JSON.parse(event));
-	// 	alpha = event.alpha; // yaw
-	// 	beta = event.beta; // pitch
-	// 	gamma = event.gamma; // roll
-	// }
+	function handleOrientation(event) {
+		if (event.gamma > 10) {
+			keysHeld.update(arr => [...arr, "ArrowRight"]);
+		} else if (event.gamma < -10) {
+			keysHeld.update(arr => [...arr, "ArrowLeft"]);
+		} 
+
+		if (event.beta > 10) {
+			keysHeld.update(arr => [...arr, "ArrowDown"]);
+		} else if (event.beta < -10) {
+			keysHeld.update(arr => [...arr, "ArrowUp"]);
+		} 
+		
+		if (event.gamma > -10 && event.gamma < 10) {
+			keysHeld.update(arr => arr.filter(held => held !== "ArrowRight" || held !== "ArrowLeft"));
+		}
+		if (event.beta > -10 && event.beta < 10) {
+			keysHeld.update(arr => arr.filter(held => held !== "ArrowDown" || held !== "ArrowUp"));
+		}
+	}
+
+	function onClick() {
+		if (typeof DeviceMotionEvent.requestPermission === 'function') {
+			// Handle iOS 13+ devices.
+			DeviceMotionEvent.requestPermission()
+			.then((state) => {
+				if (state === 'granted') {
+					window.addEventListener('deviceorientation', handleOrientation);
+				} else {
+					console.error('Request to access the orientation was rejected');
+				}
+			})
+			.catch(console.error);
+		} else {
+			// Handle regular non iOS 13+ devices.
+			window.addEventListener('deviceorientation', handleOrientation);
+		}
+	}
 
 </script>
 
 <!-- https://svelte.dev/tutorial/svelte-window -->
-<svelte:window on:keydown={handleKeydown} on:keyup={handleKeyup} />
+<svelte:window on:keydown={handleKeydown} on:keyup={handleKeyup} on:deviceorientation={handleOrientation} />
 
+<button>watch orientation</button>
 <style lang="scss">
+	button {
+		position: absolute;
+		margin-top: 80px;
+		margin-right: auto;
+	}
 </style>

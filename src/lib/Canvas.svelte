@@ -29,17 +29,19 @@
 
 		// Scene
 		const scene = new THREE.Scene();
+		scene.background = new THREE.Color( 0x20717D );
+
 
 		// Fog
-		const fog = new THREE.Fog("#000000", 1, 2.5);
+		const fog = new THREE.Fog("#E7C29F", 0.3, 2.5);
 		scene.fog = fog;
 
 		// Objects
-		const geometry = new THREE.PlaneGeometry(1, 2, 24, 24);
+		const geometry = new THREE.PlaneGeometry(2, 4, 24, 24);
 		const material = new THREE.MeshStandardMaterial({
 			map: gridTexture,
 			displacementMap: terrainTexture,
-			displacementScale: 0.4,
+			displacementScale: 0.2,
 			/**
 			 * Add a metalnessMap to our material that will tell the renderer
 			 * where the "rough" parts of our terrains are
@@ -110,9 +112,10 @@
 			0.01,
 			20
 		);
-		camera.position.x = 0;
-		camera.position.y = 0.06;
-		camera.position.z = 1.1;
+		camera.position.x = -1;
+		camera.position.y = 0.1;
+		camera.position.z = 0.7;
+		camera.lookAt( 0, 0, 0 );
 
 		const loader = new GLTFLoader();
 		let floatplane;
@@ -133,6 +136,7 @@
 		// Renderer
 		const renderer = new THREE.WebGLRenderer({
 			canvas: canvas,
+			alpha: true 
 		});
 		renderer.setSize(sizes.width, sizes.height);
 		renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
@@ -178,8 +182,8 @@
 		const tick = () => {
 			const elapsedTime = clock.getElapsedTime();
 
-			plane.position.z = -(elapsedTime * 0.15) % 2; // plane flies towards the camera
-			plane2.position.z = -((elapsedTime * 0.15) % 2) + 2;
+			plane.position.z = -(elapsedTime * 0.15) % 4; // plane flies towards the camera
+			plane2.position.z = -((elapsedTime * 0.15) % 4) + 4;
 
 			if (floatplane) {
 				flyFloatplane(floatplane, $keysHeld);
